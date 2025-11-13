@@ -1,0 +1,561 @@
+@page "/recomendaciones"
+
+<PageTitle>Recomendaciones - Búsqueda de pareja</PageTitle>
+
+<h1>Recomendaciones para personas en búsqueda de pareja</h1>
+
+<p>
+    Esta página compila consejos prácticos extraídos del libro para quienes buscan pareja y sienten que siempre terminan con personas inadecuadas o que no logran encontrar a alguien. Explora cada panel para ver recomendaciones, ejercicios y advertencias.
+</p>
+
+@code {
+    // Flags para paneles
+    private bool[] visible = Enumerable.Range(0, 21).Select(i => i == 1).ToArray(); // visible[1] = true
+
+    private void Toggle(int i)
+    {
+        if (i >= 0 && i < visible.Length)
+            visible[i] = !visible[i];
+    }
+}
+
+@* Sección 1: Diagnóstico ampliado *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">1. Diagnóstico ampliado: ¿por qué no encuentras pareja?</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(1)">@(visible[1] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[1])
+        {
+            <div class="card-body">
+                <p>
+                    Identificar causas reales evita la autocrítica innecesaria. Muchas veces no hay "algo malo" contigo sino patrones, decisiones o ausencia de acción.
+                </p>
+                <h5>Causas frecuentes</h5>
+                <ul>
+                    <li>Adicción al trabajo y falta de tiempo.</li>
+                    <li>Circulos sociales limitados y poca exposición a entornos compatibles.</li>
+                    <li>Expectativas poco realistas y listas demasiado rígidas.</li>
+                    <li>No haber sanado rupturas previas ni perdonado de corazón.</li>
+                    <li>Confundir empatía o compasión con enamoramiento.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La rutina que lo impedía:</strong> Marcos trabajaba tantas horas que sus fines de semana eran siempre para descansar en casa. Al empezar a asistir a un grupo de senderismo una vez por semana conoció a Marta, y con pequeños pasos empezó a abrir su vida social; pronto ambos descubrieron compatibilidades que no habrían surgido sin ese cambio de hábito.</p>
+
+                <h5>Checklist inicial</h5>
+                <ol>
+                    <li>¿Salgo a un entorno nuevo al menos 1 vez por semana?</li>
+                    <li>¿He trabajado mis heridas emocionales recientes?</li>
+                    <li>¿Tengo objetivos y fechas límite para relaciones estancadas?</li>
+                </ol>
+
+                <h5>Ejercicio de 30 días</h5>
+                <p>Lleva un registro diario: lugares visitados, personas nuevas con las que hablaste y si hubo seguimiento. Al final del mes revisa patrones y ajusta tu plan de acción.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 2: Amistades como potencial pareja *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">2. No descartes a tus amigos</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(2)">@(visible[2] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[2])
+        {
+            <div class="card-body">
+                <p>
+                    Muchas relaciones duraderas nacen de amistades profundas. Considera si tus miedos (perder la amistad) ocultan la oportunidad de una pareja compatible.
+                </p>
+                <ul>
+                    <li>Valora la cercanía, el conocimiento mutuo y la confianza preexistente.</li>
+                    <li>Evalúa si la falta de "química" es idealización de enamoramiento versus vínculo real.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>De amigos a compañeros de vida:</strong> Silvia y Ana eran amigas desde la universidad. Tras años de apoyo mutuo, ambas decidieron explorar si había más entre ellas. El proceso fue honesto y lento; hoy conviven y atribuyen su solidez a la amistad previa que ya había demostrado respeto y comprensión.</p>
+
+                <p>Ejercicio: identifica 3 amistades con potencial y conversa con honestidad sobre posibilidades, sin presiones.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 3: Principios, valores y orgullo *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">3. Principios, valores y orgullo</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(3)">@(visible[3] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[3])
+        {
+            <div class="card-body">
+                <p>Ser firme en principios es sano; el problema es el orgullo que vuelve esos principios en demandas que aíslan.</p>
+                <h5>Cómo actuar</h5>
+                <ul>
+                    <li>Separa no negociables de preferencias.</li>
+                    <li>Comprueba si exiges en otros lo que no ofreces.</li>
+                    <li>Practica humildad: trabajar en ti mismo para alcanzar lo que pides.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>Exigir sin ofrecer:</strong> Juan pedía una pareja activa en la fe pero no asistía a su iglesia. Tras una conversación sincera con un amigo, empezó a vivir coherentemente y eso le abrió la posibilidad de conocer a alguien que valoraba su crecimiento espiritual.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 4: Salida fácil y tests tóxicos *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">4. Evita la salida fácil y las pruebas tóxicas</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(4)">@(visible[4] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[4])
+        {
+            <div class="card-body">
+                <p>No cedas a la comodidad que evita trabajo emocional. Tampoco manipules con pruebas para "probar" al otro.</p>
+                <h5>Acciones concretas</h5>
+                <ul>
+                    <li>Comprométete a enfrentar problemas antes que huir.</li>
+                    <li>Comunica necesidades en vez de aplicar "tests".</li>
+                    <li>Busca ayuda profesional para patrones repetidos de fuga.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La repetida huida:</strong> Carla terminaba las relaciones ante el primer conflicto. Después de terapia aprendió a comunicar y afrontar, y su siguiente relación sobrevivió a crisis que antes habrían terminado todo.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 5: Empatía vs enamoramiento *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">5. Confundes la empatía con enamoramiento?</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(5)">@(visible[5] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[5])
+        {
+            <div class="card-body">
+                <p>
+                    La empatía puede crear un lazo afectivo fuerte pero no garantiza compatibilidad romántica. Aprende a distinguir señales.
+                </p>
+                <h5>Señales para evaluar</h5>
+                <ul>
+                    <li>¿Sabes exactamente qué te atrae de la persona? (valores vs emociones)</li>
+                    <li>¿La atracción surgió tras una vulnerabilidad compartida o por cualidades estables?</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La confusión de sentir y amar:</strong> Pedro se sintió profundamente conmovido por la historia de vida de Ana y creyó enamorarse. Con el tiempo entendió que su impulso era compasión; al aclararlo pudo buscar una relación basada en afinidades reales.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 6: Espera activa y fechas límite *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">6. Espera activa, fechas límite y planificación</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(6)">@(visible[6] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[6])
+        {
+            <div class="card-body">
+                <p>Combina fe con acción: planifica actividades y objetivos, y usa fechas límite respetuosas para relaciones estancadas.</p>
+                <h5>Plan sugerido</h5>
+                <ol>
+                    <li>Lista 3 entornos para conocer gente en 90 días.</li>
+                    <li>Fija una fecha límite personal para relaciones que no evolucionan.</li>
+                    <li>Realiza seguimiento mensual de tus objetivos sociales.</li>
+                </ol>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La fecha que decidió todo:</strong> Rosa estableció que tras seis meses sin compromiso, dejaría de invertir en una relación que no avanzaba. Esa fecha la impulsó a tomar decisiones saludables y eventualmente le ayudó a abrirse a otras oportunidades.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 7: Orgullo y demandas ocultas *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">7. El orgullo: cómo reconocerlo y superarlo</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(7)">@(visible[7] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[7])
+        {
+            <div class="card-body">
+                <p>El orgullo se disfraza de principios. Haz este ejercicio: por cada exigencia en tu lista pregúntate "¿por qué la necesito?" y si es fruto de temor o inseguridad.</p>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La exigencia que aisló:</strong> Fernando buscaba una pareja con un cargo alto y rechazó a varias personas valiosas. Al enfrentar su temor de inseguridad y trabajar en autoestima, se abrió a relaciones más genuinas.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 8: Trabajar en uno mismo *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">8. No haber trabajado en sí mismo(a)</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(8)">@(visible[8] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[8])
+        {
+            <div class="card-body">
+                <p>Invertir en terapia, formación emocional y lectura es clave. Las heridas no procesadas generan patrones repetidos.</p>
+                <h5>Sugerencias</h5>
+                <ul>
+                    <li>Busca un profesional y comprométete al menos 6 meses.</li>
+                    <li>Lee sobre estilos de apego y traumas infantiles.</li>
+                    <li>Aplica lo aprendido en relaciones de amistad primero.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La terapia que cambió su historia:</strong> Laura repetía relaciones con hombres indisponibles hasta que en terapia entendió su patrón. Con trabajo personal tardó en confiar pero finalmente construyó una relación estable y sana.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 9: Comunicación y no tragarse todo *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">9. Tragarse todo / No hablar</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(9)">@(visible[9] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[9])
+        {
+            <div class="card-body">
+                <p>La acumulación de silencios genera resentimientos. Aprende a comunicar de forma asertiva y con tiempos.
+                </p>
+                <ul>
+                    <li>Usa "yo siento" en lugar de acusar: reduce defensas y facilita el diálogo.</li>
+                    <li>Practica turnos de palabra y escucha reflexiva.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>El silencio que rompió todo:</strong> Pablo nunca expresó molestias pequeñas hasta que estalló en una discusión mayor. Al aprender a expresar sus sentimientos a tiempo, evitó repetidas rupturas y mejoró la calidad de su relación.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 10: Falta de acción y círculos sociales *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">10. Falta de acción y círculos sociales limitados</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(10)">@(visible[10] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[10])
+        {
+            <div class="card-body">
+                <p>La acción deliberada aumenta tus oportunidades: amplia círculos, asiste a eventos y participa activamente.</p>
+                <h5>Lugares recomendados</h5>
+                <ul>
+                    <li>Iglesia: estudios bíblicos, servicio social y campamentos.</li>
+                    <li>Clases y talleres: música, cocina, deportes, arte.</li>
+                    <li>Eventos sociales y grupos de interés (deporte, lectura, voluntariado).</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>De la inercia al compromiso social:</strong> Miguel empezó a participar en un club de lectura por recomendación; allí conoció a varias personas con valores similares y, a través de una presentación entre amigos, conoció a su actual esposa.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 11: Expectativas y metas *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">11. Expectativas poco realistas y metas</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(11)">@(visible[11] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[11])
+        {
+            <div class="card-body">
+                <p>Revisa tus expectativas y crea objetivos claros y alcanzables para tu vida y tu búsqueda amorosa.</p>
+                <h5>Ejercicio</h5>
+                <ol>
+                    <li>Escribe tu lista de pareja ideal.</li>
+                    <li>Clasifícala en no negociables / negociables / preferencias eliminables.</li>
+                    <li>Elimina el 30% de las preferencias y reevalúa.</li>
+                </ol>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La lista que limitaba:</strong> Teresa tenía una lista tan larga que descartaba a casi todos. Tras reducir sus preferencias y enfocarse en valores compartidos, comenzó a conocer personas con las que realmente conectaba.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 12: Sanar y perdonar *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">12. No darte tiempo para sanar y no perdonar de corazón</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(12)">@(visible[12] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[12])
+        {
+            <div class="card-body">
+                <p>Sanar y perdonar son procesos necesarios. El "falso perdón" mantiene resentimientos ocultos que dañan futuras relaciones.</p>
+                <ul>
+                    <li>Respeta tiempos mínimos para sanar (ej.: 6 meses tras una relación larga).</li>
+                    <li>Trabaja el perdón con terapia, journaling y práctica de gratitud.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>El perdón pendiente:</strong> Rosa decía haber perdonado a su ex pero reaccionaba con ira a comentarios inocentes; con trabajo personal y disculpas sinceras logró liberar los resentimientos y abrir su corazón a una relación nueva.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 13: Adicción al trabajo *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">13. Adicción al trabajo</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(13)">@(visible[13] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[13])
+        {
+            <div class="card-body">
+                <p>El trabajo en exceso puede ser una excusa para evitar la vida social. Revisa prioridades y define límites laborales.</p>
+                <h5>Acciones</h5>
+                <ul>
+                    <li>Establece días y horas sin trabajo para socializar.</li>
+                    <li>Evalúa si tus metas profesionales pueden adaptarse para recuperar tiempo personal.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>El ascenso que costó la vida personal:</strong> Juan aceptó un puesto que consumía su vida; perdió amistades y oportunidades románticas. Al renunciar a la sobrecarga y reorganizar su tiempo, recuperó relaciones y conoció a alguien que valoraba su nueva disponibilidad.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 14: Saber que ceder y que no *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">14. Saber qué ceder y qué no</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(14)">@(visible[14] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[14])
+        {
+            <div class="card-body">
+                <p>Las relaciones exigen acuerdos. Define tus límites y aprende a negociar sin renunciar a tus valores fundamentales.</p>
+                <ul>
+                    <li>Haz una lista de valores inviolables y otra de preferencias negociables.</li>
+                    <li>Comunica límites desde el inicio con respeto y claridad.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>El acuerdo que salvó el matrimonio:</strong> Marta y Luis discutían por horarios de trabajo; al sentarse y definir qué era negociable y qué no, crearon un plan que respetaba la carrera de Luis y las necesidades familiares de Marta, fortaleciendo su relación.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 15: Proyecto de vida *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">15. No tener un proyecto de vida</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(15)">@(visible[15] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[15])
+        {
+            <div class="card-body">
+                <p>Un proyecto de vida te hace atractivo y claro en lo que buscas. Define metas personales, profesionales y familiares.</p>
+                <ol>
+                    <li>Escribe metas a 1, 3 y 10 años.</li>
+                    <li>Determina qué tipo de pareja encaja con ese proyecto y qué sacrificarías para alcanzarlo.</li>
+                </ol>
+
+                <h5>Mini-historia</h5>
+                <p><strong>El rumbo que atrajo compañía:</strong> Andrés diseñó su proyecto de vida con objetivos claros; al mostrarlos con honestidad en su círculo social, atrajo a una persona que compartía metas similares y hoy trabajan juntos hacia esos objetivos.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 16: Estilos de apego y conocerse profundamente *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">16. Conócete profundamente y tu estilo de apego</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(16)">@(visible[16] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[16])
+        {
+            <div class="card-body">
+                <p>Conocerte reduce repetir patrones. Identifica si tu apego es seguro, ansioso, evitativo o desorganizado y aplica técnicas de regulación emocional.</p>
+                <ul>
+                    <li>Inventario de relaciones pasadas: patrones, disparadores y aprendizajes.</li>
+                    <li>Practica técnicas de regulación (respiración, journaling, terapia).</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>De apego ansioso a seguridad:</strong> Carla siempre temía el abandono y eso provocaba celos. Con terapia aprendió a reconocer sus disparadores y hoy mantiene relaciones con mayor calma y confianza.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 17: Asumir demasiado y juzgar *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">17. Asumir demasiado y juzgar</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(17)">@(visible[17] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[17])
+        {
+            <div class="card-body">
+                <p>No cierres puertas por primeras impresiones o prejuicios. Da el beneficio de la duda y evalúa con tiempo y evidencia.</p>
+
+                <h5>Casos frecuentes en que excluimos sin dar oportunidad</h5>
+                <ul>
+                    <li>Por la apariencia física (peso, altura, forma de vestir).</li>
+                    <li>Por la edad: pensar "es muy mayor" o "es muy joven" sin conocer madurez.</li>
+                    <li>Por el trabajo o estatus económico.</li>
+                    <li>Por tatuajes, cicatrices o alguna condición visible.</li>
+                    <li>Por ser padre/madre soltera(o) o tener hijos de relaciones previas.</li>
+                    <li>Por el acento, la forma de hablar o el nivel educativo aparente.</li>
+                    <li>Por creencias distintas (si no son realmente no negociables).</li>
+                    <li>Por fotos o publicaciones en redes sociales que muestran sólo momentos puntuales.</li>
+                    <li>Por rumores o comentarios de terceros sin verificar.</li>
+                </ul>
+
+                <h5>Mini-historias (anónimas) — casos reales</h5>
+                <ol>
+                    <li>
+                        <strong>La oportunidad perdida por la foto:</strong> Laura descartó a un hombre porque su foto en una red social mostraba un hobby que a ella no le gustaba. Tras conocerlo en un evento, descubrió que era cariñoso, fiel a su familia y compartían valores; Laura se arrepintió de no haberle escrito antes.
+                    </li>
+                    <li>
+                        <strong>La madurez más allá de la edad:</strong> Carlos creía que una mujer de 10 años menor que él "no tendría estabilidad". Tras conversar varias veces en un grupo de voluntariado, comprobó su madurez emocional y hoy son pareja estable.
+                    </li>
+                    <li>
+                        <strong>El ju?icio por trabajo:</strong> Ana rechazó a alguien porque trabajaba en un comercio pequeño; más tarde supo que esa persona tenía un proyecto de vida coherente, buen trato con su familia y estabilidad emocional. Ana perdió la posibilidad de conocer a alguien valioso por un prejuicio económico.
+                    </li>
+                    <li>
+                        <strong>Padres con historias:</strong> Marcos evitaba salir con mujeres con hijos porque pensaba que "sería complicado". Un día aceptó conocer a una madre soltera en un café y descubrió una pareja responsable, cariñosa y con valores compatibles.
+                    </li>
+                    <li>
+                        <strong>Tatuajes y primera impresión:</strong> Elena descartó a un hombre por múltiples tatuajes en la primera cita; después supo que esos tatuajes representaban historias de superación y que la persona era respetuosa, espiritual y estable en sus relaciones.
+                    </li>
+                </ol>
+
+                <h5>Consecuencias de excluir rápido</h5>
+                <ul>
+                    <li>Perder oportunidades reales de conexión y crecimiento mutuo.</li>
+                    <li>Reforzar prejuicios y limitar tu círculo social.</li>
+                    <li>Posible arrepentimiento al descubrir luego cualidades valiosas que ignoraste.</li>
+                </ul>
+
+                <h5>Cómo darte chance: pasos prácticos</h5>
+                <ol>
+                    <li>Aplica la regla de las 3 interacciones: antes de descartar a alguien, ten al menos 3 conversaciones o encuentros informales.</li>
+                    <li>Busca evidencia contraria a tu prejuicio: pregunta sobre hobbies, valores y proyectos de vida.</li>
+                    <li>Conoce en contextos grupales para reducir presión y ver comportamiento natural.</li>
+                    <li>Evita basar juicios en fotos o información parcial; prioriza la conversación presencial o videollamada.</li>
+                    <li>Si hay límites o no negociables, comunícalos con respeto; no confundas límites con prejuicios.</li>
+                </ol>
+
+                <h5>Ejercicio práctico (14 días)</h5>
+                <p>
+                    Durante dos semanas, cuando sientas un juicio instantáneo sobre alguien nuevo, anota la razón y realiza al menos una interacción (pregunta breve o saludo). Tras la interacción escribe una evidencia a favor y otra en contra de tu impresión inicial. Revisa al final de las dos semanas qué patrones aparecen.
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 18: Mostrar tu valor y evitar impresiones erróneas *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">18. Muestra tu valor y evita impresiones equivocadas</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(18)">@(visible[18] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[18])
+        {
+            <div class="card-body">
+                <p>No te ocultes ni des la impresión de ya tener pareja. Muestra tus dones con humildad y coherencia.</p>
+                <ul>
+                    <li>Comparte actividades que muestren tus valores (voluntariado, cuidado de niños, hobbies).</li>
+                    <li>Cuida lenguaje corporal y límites para evitar malentendidos.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La modestia que ocultaba talento:</strong> Sergio minimizaba su amor por la música; cuando empezó a compartir en un grupo de voluntariado musical, conoció a alguien que valoraba ese don y surgió una conexión genuina.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 19: Hábitos prácticos y salud física *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">19. Hábitos prácticos: ejercicio, círculos y preguntas intencionales</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(19)">@(visible[19] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[19])
+        {
+            <div class="card-body">
+                <ul>
+                    <li>Ejercicio 3x/semana para energía y autoestima.</li>
+                    <li>Apúntate a actividades nuevas (2 por trimestre).</li>
+                    <li>Preguntas para conocer: "¿Cuál es tu proyecto de vida?", "¿Qué te apasiona?"</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>La energía que cambió todo:</strong> Valeria incorporó ejercicio en su rutina y se sintió más segura; esa nueva energía la impulsó a participar en actividades sociales donde conoció a su pareja actual.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Sección 20: Evitar extremos y buscar balance *@
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">20. Evita los extremos: ni pedir demasiado ni conformarte</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="() => Toggle(20)">@(visible[20] ? "Cerrar" : "Abrir")</button>
+        </div>
+        @if (visible[20])
+        {
+            <div class="card-body">
+                <p>Busca equilibrio: una lista con no negociables clara y un  margen de flexibilidad en preferencias permite abrir puertas sin renunciar a lo esencial.</p>
+                <ul>
+                    <li>Define 3 no negociables y 5 preferencias negociables.</li>
+                    <li>Reevalúa cada 6 meses en función de tu crecimiento personal.</li>
+                </ul>
+
+                <h5>Mini-historia</h5>
+                <p><strong>El equilibrio que floreció:</strong> Laura dejó de exigir una lista perfecta y abrió espacio a conocer personas diversas; encontró a alguien que compartía valores fundamentales aunque no cumplía todas las preferencias superficiales.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<p>¿Quieres que convierta todo esto en un PDF descargable, un cuestionario interactivo paso a paso o una serie de ejercicios semanales con seguimiento?</p>
