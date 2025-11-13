@@ -2,12 +2,36 @@
 
 <PageTitle>Relaciones de pareja sanas y duraderas</PageTitle>
 
-<section>
-    <h2>Objetivo del sitio</h2>
-    <p>
-        En el mundo moderno encontramos demasiados casos de relaciones sentimentales tóxicas, en las cuales abundan el machismo, la agresión y la falta de respeto en general. Estos problemas se resumen en que a las personas no se les suele enseñar cómo tener relaciones sentimentales sanas y duraderas. La serie "Relaciones de pareja sanas y duraderas" tiene como uno de sus principales objetivos ser una guía para que cada vez más personas aprendan cuáles son las características y comportamientos adecuados en las relaciones que perduran felizmente a lo largo del tiempo, de manera que veamos cada vez menos relaciones de carácter tóxico y, por el contrario, más relaciones sanas y duraderas.
-    </p>
-</section>
+@code {
+    private bool showObjetivo = true;
+    private bool showSeccion1 = true;
+    private bool showSeccion2 = true;
+    private bool showSeccion3 = true;
+
+    private void ToggleObjetivo() => showObjetivo = !showObjetivo;
+    private void ToggleSeccion1() => showSeccion1 = !showSeccion1;
+    private void ToggleSeccion2() => showSeccion2 = !showSeccion2;
+    private void ToggleSeccion3() => showSeccion3 = !showSeccion3;
+}
+
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Objetivo del sitio</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="ToggleObjetivo" aria-expanded="@(showObjetivo)">
+                @(showObjetivo ? "Cerrar" : "Abrir")
+            </button>
+        </div>
+        @if (showObjetivo)
+        {
+            <div class="card-body">
+                <p>
+                    En el mundo moderno encontramos demasiados casos de relaciones sentimentales tóxicas, en las cuales abundan el machismo, la agresión y la falta de respeto en general. Estos problemas se resumen en que a las personas no se les suele enseñar cómo tener relaciones sentimentales sanas y duraderas. La serie "Relaciones de pareja sanas y duraderas" tiene como uno de sus principales objetivos ser una guía para que cada vez más personas aprendan cuáles son las características y comportamientos adecuados en las relaciones que perduran felizmente a lo largo del tiempo, de manera que veamos cada vez menos relaciones de carácter tóxico y, por el contrario, más relaciones sanas y duraderas.
+                </p>
+            </div>
+        }
+    </div>
+</div>
 
 <h1>Preguntas de introspección</h1>
 
@@ -16,132 +40,168 @@
 </p>
 
 <!-- Sección 1: Búsqueda de pareja -->
-<section>
-    <h2>Sección 1 — Búsqueda de pareja</h2>
-    <p>Preguntas prácticas y estratégicas para quien está activamente buscando pareja.</p>
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Sección 1 — Búsqueda de pareja</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="ToggleSeccion1" aria-expanded="@(showSeccion1)">
+                @(showSeccion1 ? "Cerrar" : "Abrir")
+            </button>
+        </div>
+        @if (showSeccion1)
+        {
+            <div class="card-body">
+                <p>Preguntas prácticas y estratégicas para quien está activamente buscando pareja.</p>
 
-    <h3>Preparación personal</h3>
-    <ul>
-        <li>¿Estoy emocionalmente disponible o necesito tiempo para sanar una ruptura?</li>
-        <li>¿Tengo un proyecto de vida claro y puedo articular cómo encajaría una pareja en él?</li>
-        <li>¿Qué no negociaría en una relación (valores, fe, crianza) y por qué?</li>
-        <li>¿Tengo una fecha límite razonable para avanzar (meses/años) o espero indefinidamente?</li>
-        <li>¿Qué señales me indican que debo dejar de invertir en alguien que no corresponde?</li>
-    </ul>
+                <h3>Preparación personal</h3>
+                <ul>
+                    <li>¿Estoy emocionalmente disponible o necesito tiempo para sanar una ruptura?</li>
+                    <li>¿Tengo un proyecto de vida claro y puedo articular cómo encajaría una pareja en él?</li>
+                    <li>¿Qué no negociaría en una relación (valores, fe, crianza) y por qué?</li>
+                    <li>¿Tengo una fecha límite razonable para avanzar (meses/años) o espero indefinidamente?</li>
+                    <li>¿Qué señales me indican que debo dejar de invertir en alguien que no corresponde?</li>
+                </ul>
 
-    <h3>Lugares y acción</h3>
-    <ul>
-        <li>¿A qué actividades con valores afines puedo asistir regularmente (iglesia, voluntariado, cursos)?</li>
-        <li>¿Qué nuevas experiencias puedo probar este mes para ampliar mis círculos sociales?</li>
-        <li>¿Uso mi red de amistades para conocer personas compatibles?</li>
-        <li>¿Mi presencia en línea (perfil, fotos, mensajes) comunica mi valor y prioridades?</li>
-    </ul>
+                <h3>Lugares y acción</h3>
+                <ul>
+                    <li>¿A qué actividades con valores afines puedo asistir regularmente (iglesia, voluntariado, cursos)?</li>
+                    <li>¿Qué nuevas experiencias puedo probar este mes para ampliar mis círculos sociales?</li>
+                    <li>¿Uso mi red de amistades para conocer personas compatibles?</li>
+                    <li>¿Mi presencia en línea (perfil, fotos, mensajes) comunica mi valor y prioridades?</li>
+                </ul>
 
-    <h3>Expectativas y filtros</h3>
-    <ul>
-        <li>¿Mis requisitos son criterios de madurez o listas inalcanzables que reducen mis oportunidades?</li>
-        <li>¿Pido en otros lo que no he cultivado en mí mismo(a)?</li>
-        <li>¿Estoy dispuesto(a) a conocer a alguien que no encaje al 100% pero comparte los no negociables?</li>
-    </ul>
+                <h3>Expectativas y filtros</h3>
+                <ul>
+                    <li>¿Mis requisitos son criterios de madurez o listas inalcanzables que reducen mis oportunidades?</li>
+                    <li>¿Pido en otros lo que no he cultivado en mí mismo(a)?</li>
+                    <li>¿Estoy dispuesto(a) a conocer a alguien que no encaje al 100% pero comparte los no negociables?</li>
+                </ul>
 
-    <h3>Evaluación temprana</h3>
-    <ul>
-        <li>¿La persona muestra coherencia entre palabras y acciones en las primeras citas?</li>
-        <li>¿Respeta límites, tiempos y decisiones desde el inicio?</li>
-        <li>¿Muestra interés genuino por conocerte (preguntas, memoria de detalles, seguimiento)?</li>
-        <li>¿Hay señales tempranas de control, manipulación o deshonestidad?</li>
-    </ul>
+                <h3>Evaluación temprana</h3>
+                <ul>
+                    <li>¿La persona muestra coherencia entre palabras y acciones en las primeras citas?</li>
+                    <li>¿Respeta límites, tiempos y decisiones desde el inicio?</li>
+                    <li>¿Muestra interés genuino por conocerte (preguntas, memoria de detalles, seguimiento)?</li>
+                    <li>¿Hay señales tempranas de control, manipulación o deshonestidad?</li>
+                </ul>
 
-    <h3>Plan y seguimiento</h3>
-    <ul>
-        <li>¿Tengo un plan semanal para conocer gente nueva (eventos, cursos, voluntariado)?</li>
-        <li>¿Registro interacciones para identificar patrones y ajustar mi estrategia?</li>
-        <li>¿Sé cómo cerrar espacios que no avanzan (comunicar límites, fecha límite personal, retirada)?</li>
-    </ul>
-</section>
+                <h3>Plan y seguimiento</h3>
+                <ul>
+                    <li>¿Tengo un plan semanal para conocer gente nueva (eventos, cursos, voluntariado)?</li>
+                    <li>¿Registro interacciones para identificar patrones y ajustar mi estrategia?</li>
+                    <li>¿Sé cómo cerrar espacios que no avanzan (comunicar límites, fecha límite personal, retirada)?</li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
 
 <!-- Sección 2: Noviazgos -->
-<section>
-    <h2>Sección 2 — Noviazgos</h2>
-    <p>Preguntas para profundizar en la etapa de noviazgo: conocerse, establecer acuerdos y evaluar futuro conjunto.</p>
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Sección 2 — Noviazgos</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="ToggleSeccion2" aria-expanded="@(showSeccion2)">
+                @(showSeccion2 ? "Cerrar" : "Abrir")
+            </button>
+        </div>
+        @if (showSeccion2)
+        {
+            <div class="card-body">
+                <p>Preguntas para profundizar en la etapa de noviazgo: conocerse, establecer acuerdos y evaluar futuro conjunto.</p>
 
-    <h3>Conocerse y amistad</h3>
-    <ul>
-        <li>¿Hemos pasado tiempo como amigos antes de formalizar la relación?</li>
-        <li>¿Conocemos la historia de vida del otro (familia, heridas, metas)?</li>
-        <li>¿Compartimos actividades que revelen carácter (voluntariado, servicio, trabajo en equipo)?</li>
-    </ul>
+                <h3>Conocerse y amistad</h3>
+                <ul>
+                    <li>¿Hemos pasado tiempo como amigos antes de formalizar la relación?</li>
+                    <li>¿Conocemos la historia de vida del otro (familia, heridas, metas)?</li>
+                    <li>¿Compartimos actividades que revelen carácter (voluntariado, servicio, trabajo en equipo)?</li>
+                </ul>
 
-    <h3>Comunicación y límites</h3>
-    <ul>
-        <li>¿Hablamos con franqueza sobre expectativas, límites y no negociables?</li>
-        <li>¿Escuchamos para entender o para responder? ¿Quién monopoliza la conversación?</li>
-        <li>¿Tenemos reglas sobre comunicación en redes y límites con amistades del sexo opuesto?</li>
-    </ul>
+                <h3>Comunicación y límites</h3>
+                <ul>
+                    <li>¿Hablamos con franqueza sobre expectativas, límites y no negociables?</li>
+                    <li>¿Escuchamos para entender o para responder? ¿Quién monopoliza la conversación?</li>
+                    <li>¿Tenemos reglas sobre comunicación en redes y límites con amistades del sexo opuesto?</li>
+                </ul>
 
-    <h3>Intimidad y prueba de compromiso</h3>
-    <ul>
-        <li>¿Cómo manejamos la atracción física respetando los límites acordados?</li>
-        <li>¿Hemos verificado compatibilidad en ritmos (afecto, sexo, tiempo juntos)?</li>
-        <li>¿La relación mejora nuestras vidas o nos hace depender emocionalmente?</li>
-    </ul>
+                <h3>Intimidad y prueba de compromiso</h3>
+                <ul>
+                    <li>¿Cómo manejamos la atracción física respetando los límites acordados?</li>
+                    <li>¿Hemos verificado compatibilidad en ritmos (afecto, sexo, tiempo juntos)?</li>
+                    <li>¿La relación mejora nuestras vidas o nos hace depender emocionalmente?</li>
+                </ul>
 
-    <h3>Dinámica de conflicto</h3>
-    <ul>
-        <li>¿Sabemos discutir sin humillar ni herir? ¿Proponemos pausas cuando es necesario?</li>
-        <li>¿Cómo resolvemos malentendidos: con culpabilización o con escucha y reparación?</li>
-        <li>¿Buscamos ayuda externa cuando el conflicto se repite y no lo resolvemos?</li>
-    </ul>
+                <h3>Dinámica de conflicto</h3>
+                <ul>
+                    <li>¿Sabemos discutir sin humillar ni herir? ¿Proponemos pausas cuando es necesario?</li>
+                    <li>¿Cómo resolvemos malentendidos: con culpabilización o con escucha y reparación?</li>
+                    <li>¿Buscamos ayuda externa cuando el conflicto se repite y no lo resolvemos?</li>
+                </ul>
 
-    <h3>Evaluar futuro</h3>
-    <ul>
-        <li>¿Hemos conversado sobre matrimonio, hijos, finanzas y fe? ¿Hay coincidencias o incompatibilidades graves?</li>
-        <li>¿Qué compromisos mutuos estamos dispuestos a asumir si decidimos casarnos?</li>
-        <li>¿Hay señal de crecimiento mutuo y disposición a trabajar por la relación?</li>
-    </ul>
-</section>
+                <h3>Evaluar futuro</h3>
+                <ul>
+                    <li>¿Hemos conversado sobre matrimonio, hijos, finanzas y fe? ¿Hay coincidencias o incompatibilidades graves?</li>
+                    <li>¿Qué compromisos mutuos estamos dispuestos a asumir si decidimos casarnos?</li>
+                    <li>¿Hay señal de crecimiento mutuo y disposición a trabajar por la relación?</li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
 
 <!-- Sección 3: Matrimonios -->
-<section>
-    <h2>Sección 3 — Matrimonios</h2>
-    <p>Preguntas dirigidas a parejas casadas o que planean casarse: preservación, crecimiento y legado.</p>
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Sección 3 — Matrimonios</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="ToggleSeccion3" aria-expanded="@(showSeccion3)">
+                @(showSeccion3 ? "Cerrar" : "Abrir")
+            </button>
+        </div>
+        @if (showSeccion3)
+        {
+            <div class="card-body">
+                <p>Preguntas dirigidas a parejas casadas o que planean casarse: preservación, crecimiento y legado.</p>
 
-    <h3>Prioridades y proyecto compartido</h3>
-    <ul>
-        <li>¿Tenemos un proyecto de vida compartido con metas claras (hijos, lugar, ministerio, carrera)?</li>
-        <li>¿Cómo organizamos las finanzas: cuentas, presupuesto y prioridades de gasto?</li>
-        <li>¿Qué sacrificios mutuos estamos dispuestos a hacer en favor del proyecto común?</li>
-    </ul>
+                <h3>Prioridades y proyecto compartido</h3>
+                <ul>
+                    <li>¿Tenemos un proyecto de vida compartido con metas claras (hijos, lugar, ministerio, carrera)?</li>
+                    <li>¿Cómo organizamos las finanzas: cuentas, presupuesto y prioridades de gasto?</li>
+                    <li>¿Qué sacrificios mutuos estamos dispuestos a hacer en favor del proyecto común?</li>
+                </ul>
 
-    <h3>Crianza y valores</h3>
-    <ul>
-        <li>¿Cómo educaremos a los hijos en valores, disciplina y fe? ¿Qué límites no vamos a ceder?</li>
-        <li>¿Qué papel desempeñan la comunicación y el ejemplo en nuestra forma de educar?</li>
-    </ul>
+                <h3>Crianza y valores</h3>
+                <ul>
+                    <li>¿Cómo educaremos a los hijos en valores, disciplina y fe? ¿Qué límites no vamos a ceder?</li>
+                    <li>¿Qué papel desempeñan la comunicación y el ejemplo en nuestra forma de educar?</li>
+                </ul>
 
-    <h3>Intimidad a largo plazo</h3>
-    <ul>
-        <li>¿Qué prácticas mantenemos para cuidar la chispa (citas, gestos, tiempo a solas)?</li>
-        <li>¿Cómo cuidamos la intimidad emocional en medio de la rutina y las responsabilidades?</li>
-    </ul>
+                <h3>Intimidad a largo plazo</h3>
+                <ul>
+                    <li>¿Qué prácticas mantenemos para cuidar la chispa (citas, gestos, tiempo a solas)?</li>
+                    <li>¿Cómo cuidamos la intimidad emocional en medio de la rutina y las responsabilidades?</li>
+                </ul>
 
-    <h3>Protección y fidelidad</h3>
-    <ul>
-        <li>¿Qué acciones concretas tomamos para proteger la relación de tentaciones y controles externos?</li>
-        <li>¿Cómo definimos y practicamos la fidelidad en lo emocional y lo práctico?</li>
-    </ul>
+                <h3>Protección y fidelidad</h3>
+                <ul>
+                    <li>¿Qué acciones concretas tomamos para proteger la relación de tentaciones y controles externos?</li>
+                    <li>¿Cómo definimos y practicamos la fidelidad en lo emocional y lo práctico?</li>
+                </ul>
 
-    <h3>Manejo de crisis y perdón</h3>
-    <ul>
-        <li>¿Tenemos un plan para enfrentar crisis (pérdidas, enfermedad, rupturas familiares) apoyándonos mutuamente?</li>
-        <li>¿Cómo practicamos el perdón de corazón cuando se cometen errores graves?</li>
-    </ul>
+                <h3>Manejo de crisis y perdón</h3>
+                <ul>
+                    <li>¿Tenemos un plan para enfrentar crisis (pérdidas, enfermedad, rupturas familiares) apoyándonos mutuamente?</li>
+                    <li>¿Cómo practicamos el perdón de corazón cuando se cometen errores graves?</li>
+                </ul>
 
-    <h3>Legado y servicio</h3>
-    <ul>
-        <li>¿Qué legado queremos dejar como pareja (fe, servicio, ejemplo para hijos y comunidad)?</li>
-        <li>¿Cómo participamos juntos en la comunidad o la iglesia para servir y crecer espiritualmente?</li>
-    </ul>
-</section>
+                <h3>Legado y servicio</h3>
+                <ul>
+                    <li>¿Qué legado queremos dejar como pareja (fe, servicio, ejemplo para hijos y comunidad)?</li>
+                    <li>¿Cómo participamos juntos en la comunidad o la iglesia para servir y crecer espiritualmente?</li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
 
 <p>Si alguna de estas preguntas despierta dolor o dudas profundas, busca apoyo profesional, un consejero espiritual o terapia de pareja. Reflexionar transforma, pero actuar con guía es más seguro.</p>
