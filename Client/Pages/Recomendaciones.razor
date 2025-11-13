@@ -1,4 +1,6 @@
 @page "/recomendaciones"
+@using System.Text.Json
+@inject IJSRuntime JS
 
 <PageTitle>Recomendaciones - Búsqueda de pareja</PageTitle>
 
@@ -12,10 +14,111 @@
     // Flags para paneles
     private bool[] visible = Enumerable.Range(0, 21).Select(i => i == 1).ToArray(); // visible[1] = true
 
+    // Checklist inicial (interactivo)
+    private bool check1;
+    private bool check2;
+    private bool check3;
+
+    // Ejercicio 30 días
+    private List<ExerciseEntry> entries = new();
+    private ExerciseEntry newEntry = new() { Date = DateTime.Today };
+
+    private const string ChecklistKey = "reco_checklist";
+    private const string EntriesKey = "reco_30days_entries";
+
     private void Toggle(int i)
     {
         if (i >= 0 && i < visible.Length)
             visible[i] = !visible[i];
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadChecklist();
+        await LoadEntries();
+    }
+
+    private async Task SaveChecklist()
+    {
+        var obj = new { check1, check2, check3 };
+        var json = JsonSerializer.Serialize(obj);
+        await JS.InvokeVoidAsync("localStorage.setItem", ChecklistKey, json);
+    }
+
+    private async Task LoadChecklist()
+    {
+        try
+        {
+            var json = await JS.InvokeAsync<string>("localStorage.getItem", ChecklistKey);
+            if (!string.IsNullOrEmpty(json))
+            {
+                var doc = JsonDocument.Parse(json);
+                if (doc.RootElement.TryGetProperty("check1", out var c1)) check1 = c1.GetBoolean();
+                if (doc.RootElement.TryGetProperty("check2", out var c2)) check2 = c2.GetBoolean();
+                if (doc.RootElement.TryGetProperty("check3", out var c3)) check3 = c3.GetBoolean();
+            }
+        }
+        catch { }
+    }
+
+    private async Task AddEntry()
+    {
+        if (string.IsNullOrWhiteSpace(newEntry.Place) && string.IsNullOrWhiteSpace(newEntry.NewPeople))
+            return;
+
+        newEntry.Date = DateTime.Today;
+        entries.Add(new ExerciseEntry {
+            Date = newEntry.Date,
+            Place = newEntry.Place ?? string.Empty,
+            NewPeople = newEntry.NewPeople ?? string.Empty,
+            FollowUp = newEntry.FollowUp
+        });
+
+        newEntry = new ExerciseEntry { Date = DateTime.Today };
+        await SaveEntries();
+    }
+
+    private async Task SaveEntries()
+    {
+        var json = JsonSerializer.Serialize(entries);
+        await JS.InvokeVoidAsync("localStorage.setItem", EntriesKey, json);
+    }
+
+    private async Task LoadEntries()
+    {
+        try
+        {
+            var json = await JS.InvokeAsync<string>("localStorage.getItem", EntriesKey);
+            if (!string.IsNullOrEmpty(json))
+            {
+                entries = JsonSerializer.Deserialize<List<ExerciseEntry>>(json) ?? new List<ExerciseEntry>();
+            }
+        }
+        catch { entries = new List<ExerciseEntry>(); }
+    }
+
+    private async Task RemoveEntry(ExerciseEntry e)
+    {
+        entries.Remove(e);
+        await SaveEntries();
+    }
+
+    private int TotalEntries => entries.Count;
+    private int FollowUpCount => entries.Count(x => x.FollowUp);
+    private int UniquePlaces => entries.Select(x => x.Place?.Trim()).Where(s => !string.IsNullOrEmpty(s)).Distinct(StringComparer.OrdinalIgnoreCase).Count();
+    private int UniquePeople => entries.SelectMany(x => (x.NewPeople ?? "").Split(',')).Select(p => p.Trim()).Where(p => !string.IsNullOrEmpty(p)).Distinct(StringComparer.OrdinalIgnoreCase).Count();
+
+    private string ReviewSummary()
+    {
+        return $"Entradas: {TotalEntries}, Lugares distintos: {UniquePlaces}, Personas nuevas: {UniquePeople}, Seguimientos: {FollowUpCount}";
+    }
+
+    private class ExerciseEntry
+    {
+        public DateTime Date { get; set; }
+        public string Place { get; set; } = string.Empty;
+        public string NewPeople { get; set; } = string.Empty;
+        public bool FollowUp { get; set; }
     }
 }
 
@@ -45,14 +148,62 @@
                 <p><strong>La rutina que lo impedía:</strong> Marcos trabajaba tantas horas que sus fines de semana eran siempre para descansar en casa. Al empezar a asistir a un grupo de senderismo una vez por semana conoció a Marta, y con pequeños pasos empezó a abrir su vida social; pronto ambos descubrieron compatibilidades que no habrían surgido sin ese cambio de hábito.</p>
 
                 <h5>Checklist inicial</h5>
-                <ol>
-                    <li>¿Salgo a un entorno nuevo al menos 1 vez por semana?</li>
-                    <li>¿He trabajado mis heridas emocionales recientes?</li>
-                    <li>¿Tengo objetivos y fechas límite para relaciones estancadas?</li>
-                </ol>
+                <div class="mb-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="c1" @bind="check1" />
+                        <label class="form-check-label" for="c1">¿Salgo a un entorno nuevo al menos 1 vez por semana?</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="c2" @bind="check2" />
+                        <label class="form-check-label" for="c2">¿He trabajado mis heridas emocionales recientes?</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="c3" @bind="check3" />
+                        <label class="form-check-label" for="c3">¿Tengo objetivos y fechas límite para relaciones estancadas?</label>
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-primary btn-sm" @onclick="SaveChecklist">Guardar checklist</button>
+                        <button class="btn btn-secondary btn-sm ms-2" @onclick="LoadChecklist">Cargar checklist</button>
+                    </div>
+                </div>
 
                 <h5>Ejercicio de 30 días</h5>
                 <p>Lleva un registro diario: lugares visitados, personas nuevas con las que hablaste y si hubo seguimiento. Al final del mes revisa patrones y ajusta tu plan de acción.</p>
+
+                <div class="mb-3">
+                    <label class="form-label">Nuevo registro (hoy)</label>
+                    <input class="form-control mb-1" placeholder="Lugar visitado" @bind="newEntry.Place" />
+                    <input class="form-control mb-1" placeholder="Personas nuevas (separadas por comas)" @bind="newEntry.NewPeople" />
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="followUp" @bind="newEntry.FollowUp" />
+                        <label class="form-check-label" for="followUp">Hubo seguimiento</label>
+                    </div>
+                    <button class="btn btn-success btn-sm" @onclick="AddEntry">Añadir entrada</button>
+                </div>
+
+                @if (entries.Any())
+                {
+                    <h6>Registros guardados</h6>
+                    <div class="list-group mb-2">
+                        @foreach (var e in entries.OrderByDescending(x => x.Date))
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div><strong>@e.Date.ToString("yyyy-MM-dd")</strong> — @e.Place</div>
+                                    <div class="text-muted small">Personas: @e.NewPeople</div>
+                                    <div class="text-muted small">Seguimiento: @(e.FollowUp ? "Sí" : "No")</div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-danger" @onclick="() => RemoveEntry(e)">Eliminar</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Resumen:</strong> @ReviewSummary()
+                    </div>
+                }
             </div>
         }
     </div>
@@ -557,5 +708,3 @@
         }
     </div>
 </div>
-
-<p>¿Quieres que convierta todo esto en un PDF descargable, un cuestionario interactivo paso a paso o una serie de ejercicios semanales con seguimiento?</p>
