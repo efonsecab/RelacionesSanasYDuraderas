@@ -8,11 +8,13 @@
     private bool showSeccion1 = true;
     private bool showSeccion2 = true;
     private bool showSeccion3 = true;
+    private bool showSeccion4 = true; // nueva sección Rompiendo estereotipos
 
     private void ToggleObjetivo() => showObjetivo = !showObjetivo;
     private void ToggleSeccion1() => showSeccion1 = !showSeccion1;
     private void ToggleSeccion2() => showSeccion2 = !showSeccion2;
     private void ToggleSeccion3() => showSeccion3 = !showSeccion3;
+    private void ToggleSeccion4() => showSeccion4 = !showSeccion4;
 }
 
 <div class="mb-3">
@@ -200,6 +202,54 @@
                     <li>¿Qué legado queremos dejar como pareja (fe, servicio, ejemplo para hijos y comunidad)?</li>
                     <li>¿Cómo participamos juntos en la comunidad o la iglesia para servir y crecer espiritualmente?</li>
                 </ul>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Sección 4: Rompiendo estereotipos -->
+<div class="mb-3">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Sección 4 — Rompiendo estereotipos</h2>
+            <button class="btn btn-sm btn-outline-primary" @onclick="ToggleSeccion4" aria-expanded="@(showSeccion4)">
+                @(showSeccion4 ? "Cerrar" : "Abrir")
+            </button>
+        </div>
+        @if (showSeccion4)
+        {
+            <div class="card-body">
+                <p>Preguntas para cuestionar mitos y estereotipos comunes y para impulsar la introspección.</p>
+
+                <ul>
+                    <li>Si ya no existen "hombres buenos", ¿cómo es que tus amigas se están casando con hombres buenos que conocieron hace menos de 1 año?</li>
+                    <li>Si las mujeres que esperan mucho se quedan solas, ¿por qué conoces casos de mujeres que eligieron con calma y hoy tienen parejas estables?</li>
+                    <li>Si nadie es fiel hoy en día, ¿cómo explicas parejas que llevan años juntos y mantienen compromisos claros?</li>
+                    <li>Si todos los hombres son iguales, ¿qué evidencia tienes de que tus experiencias representan a todos los hombres y no a patrones específicos que atraes?</li>
+                    <li>Si el amor es para siempre pero las relaciones rompen, ¿qué diferencias prácticas observas entre las parejas que leen y trabajan en su relación versus las que no?</li>
+                    <li>Si la química lo es todo, ¿por qué algunas parejas con poca "química" pero gran respeto y valores comunes perduran?</li>
+                    <li>Si la juventud garantiza felicidad en pareja, ¿por qué hay matrimonios jóvenes que fracasan y parejas maduras que prosperan?</li>
+                    <li>Si los perfiles en apps lo dicen todo, ¿por qué muchas relaciones reales nacen fuera de las apps (amigos, trabajo, iglesia)?</li>
+                    <li>Si las señales son claras desde la primera cita, ¿por qué algunas relaciones requieren tiempo y conversaciones profundas para mostrarse auténticas?</li>
+                    <li>Si el carácter no cambia, ¿cómo explicas cambios reales en personas que trabajaron en terapia y autocontrol?</li>
+                    <li>Si la espiritualidad es solo una etiqueta, ¿por qué muchas parejas coinciden en fe y eso les da un marco común para resolver conflictos?</li>
+                    <li>Si el éxito profesional aleja la pareja, ¿por qué hay parejas donde ambos crecen profesionalmente y también mantienen intimidad y prioridades compartidas?</li>
+                    <li>Si los compromisos asustan, ¿qué impacto tendría en tus decisiones practicar la transparencia sobre miedos y expectativas en vez de suponer intenciones?</li>
+                    <li>Si las diferencias irreconciliables son frecuentes, ¿qué diferencias concretas han superado parejas que admiras y cómo lo hicieron?</li>
+                    <li>Si la comunicación es imposible en conflicto, ¿qué técnicas observas en otras parejas que permiten dialogar sin destruirse?</li>
+                    <li>Si tu círculo no conoce hombres/mujeres confiables, ¿qué acciones puedes tomar para ampliar tus círculos y exponerte a otras realidades?</li>
+                    <li>Si tu miedo lleva a controlar, ¿qué relación entre control y ruptura has visto en tu entorno cercano?</li>
+                    <li>Si la cultura actual promueve el consumo de relaciones, ¿cómo distingues entre inversión emocional sincera y búsqueda de validación rápida?</li>
+                    <li>Si las etiquetas definen a las personas ("romántico", "independiente"), ¿qué matices descubres al conversar a fondo con alguien?</li>
+                    <li>Si piensas que «todos mienten» en citas, ¿qué preguntas concretas podrías hacer para comprobar coherencia entre palabra y acto?</li>
+                    <li>Si crees que debes cambiar al otro para que la relación funcione, ¿qué parte de ese cambio depende de ti (límites, expectativas, comunicación)?</li>
+                    <li>Si las historias de éxito solo pasan a otros, ¿qué pasos prácticos han tomado esas parejas que podrías adaptar a tu vida?</li>
+                    <li>Si sueles idealizar a la pareja, ¿qué evidencias objetivas pides ahora para equilibrar idealización y realidad?</li>
+                    <li>Si temes perder libertad al comprometerte, ¿qué liberaciones y compromisos equilibrados has visto que enriquecen a ambos?</li>
+                    <li>Si crees que tener pareja significa perder libertad o independencia, ¿por qué conoces tantas personas en pareja que afirman sentirse más libres tras comprometerse?</li>
+                </ul>
+
+                <p>Reflexiona sin juzgar: identifica qué creencias tuyas pueden ser mitos y cuáles derivan de experiencias reales que requieren trabajo personal.</p>
             </div>
         }
     </div>
