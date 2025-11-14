@@ -1,0 +1,103 @@
+@namespace BlazorApp.Client.Shared
+@using System.Text.RegularExpressions
+@using Microsoft.AspNetCore.Components
+
+<div class="card responsive-youtube-card @CssClass">
+    <div class="card-body">
+        @if (!string.IsNullOrWhiteSpace(Title))
+        {
+            <h5 class="card-title">@Title</h5>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Description))
+        {
+            <p class="card-text">@Description</p>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(EmbedUrl))
+        {
+            <div class="video-container">
+                <iframe src="@EmbedUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="@Title"></iframe>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Enlace de YouTube inválido o no proporcionado.</p>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Description { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Enlace completo de YouTube (ej. https://www.youtube.com/watch?v=ID o https://youtu.be/ID).
+    /// </summary>
+    [Parameter]
+    public string YouTubeUrl { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Clases CSS adicionales para la tarjeta.
+    /// </summary>
+    [Parameter]
+    public string CssClass { get; set; } = string.Empty;
+
+    private string? EmbedUrl => BuildEmbedUrl(YouTubeUrl);
+
+    private string? BuildEmbedUrl(string url)
+    {
+        if (string.IsNullOrWhiteSpace(url))
+            return null;
+
+        var trimmed = url.Trim();
+
+        try
+        {
+            // Try common patterns to extract video id
+            var patterns = new[]
+            {
+                @"youtu\.be\/(?<id>[^\?\&\/]+)",
+                @"youtube\.com\/watch\?v=(?<id>[^\&\?]+)",
+                @"youtube\.com\/embed\/(?<id>[^\?\&\/]+)",
+                @"v=(?<id>[^\&\?]+)"
+            };
+
+            foreach (var pat in patterns)
+            {
+                var m = Regex.Match(trimmed, pat, RegexOptions.IgnoreCase);
+                if (m.Success && m.Groups["id"].Success)
+                {
+                    var id = m.Groups["id"].Value;
+                    return $"https://www.youtube-nocookie.com/embed/{id}";
+                }
+            }
+
+            // If the URL already looks like an embed link, use it
+            if (trimmed.Contains("/embed/"))
+                return trimmed;
+
+            // If it's a generic URL, attempt to use it as-is (may be blocked by YouTube)
+            if (trimmed.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                return trimmed;
+
+            return null;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+}
+
+<style>
+.responsive-youtube-card .card-title { margin-bottom: .5rem; }
+.video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+@@media (max-width: 576px) {
+    .responsive-youtube-card .card-body { padding: .75rem; }
+}
+</style>
