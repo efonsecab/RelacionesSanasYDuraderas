@@ -1,5 +1,4 @@
 @namespace BlazorApp.Client.Shared
-@using System.Text.RegularExpressions
 @using Microsoft.AspNetCore.Components
 
 <div class="card responsive-youtube-card @CssClass">
@@ -14,10 +13,10 @@
             <p class="card-text">@Description</p>
         }
 
-        @if (!string.IsNullOrWhiteSpace(EmbedUrl))
+        @if (!string.IsNullOrWhiteSpace(YouTubeUrl))
         {
             <div class="video-container">
-                <iframe src="@EmbedUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="@Title"></iframe>
+                <iframe src="@YouTubeUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="@Title"></iframe>
             </div>
         }
         else
@@ -35,7 +34,7 @@
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
-    /// Enlace completo de YouTube (ej. https://www.youtube.com/watch?v=ID o https://youtu.be/ID).
+    /// URL completa para usar en el iframe (puede ser un enlace de embed o cualquier URL válida).
     /// </summary>
     [Parameter]
     public string YouTubeUrl { get; set; } = string.Empty;
@@ -45,52 +44,6 @@
     /// </summary>
     [Parameter]
     public string CssClass { get; set; } = string.Empty;
-
-    private string? EmbedUrl => BuildEmbedUrl(YouTubeUrl);
-
-    private string? BuildEmbedUrl(string url)
-    {
-        if (string.IsNullOrWhiteSpace(url))
-            return null;
-
-        var trimmed = url.Trim();
-
-        try
-        {
-            // Try common patterns to extract video id
-            var patterns = new[]
-            {
-                @"youtu\.be\/(?<id>[^\?\&\/]+)",
-                @"youtube\.com\/watch\?v=(?<id>[^\&\?]+)",
-                @"youtube\.com\/embed\/(?<id>[^\?\&\/]+)",
-                @"v=(?<id>[^\&\?]+)"
-            };
-
-            foreach (var pat in patterns)
-            {
-                var m = Regex.Match(trimmed, pat, RegexOptions.IgnoreCase);
-                if (m.Success && m.Groups["id"].Success)
-                {
-                    var id = m.Groups["id"].Value;
-                    return $"https://www.youtube-nocookie.com/embed/{id}";
-                }
-            }
-
-            // If the URL already looks like an embed link, use it
-            if (trimmed.Contains("/embed/"))
-                return trimmed;
-
-            // If it's a generic URL, attempt to use it as-is (may be blocked by YouTube)
-            if (trimmed.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-                return trimmed;
-
-            return null;
-        }
-        catch
-        {
-            return null;
-        }
-    }
 }
 
 <style>
